@@ -1,8 +1,9 @@
 class Author
-  attr_accessor :first_name, :last_name, :items
+  attr_accessor :first_name, :last_name
+  attr_reader :items, :id
 
-  def initialize(first_name, last_name)
-    @id = rand(1000)
+  def initialize(id: rand(1000), first_name: nil, last_name: nil)
+    @id = id
     @first_name = first_name
     @last_name = last_name
     @items = []
@@ -12,7 +13,7 @@ class Author
     item.author = self
   end
 
-  def self.from_parsed_json(book, _helper_data)
-    new(book['first_name'], book['last_name'])
+  def self.from_parsed_json(author, _helper_data)
+    new(id: author['id'], first_name: author['first_name'], last_name: author['last_name'])
   end
 end

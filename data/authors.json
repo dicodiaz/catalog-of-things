@@ -1,52 +1,62 @@
 [
-    {
-        "first_name": "J.K.",
-        "last_name": "Rowling",
-        "type": "Author"
-    },
-    {
-        "first_name": "J.R.R.",
-        "last_name": "Tolkien",
-        "type": "Author"
-    },
-    {
-        "first_name": "George",
-        "last_name": "Orwell",
-        "type": "Author"
-    },
-    {
-        "first_name": "Jane",
-        "last_name": "Austen",
-        "type": "Author"
-    },
-    {
-        "first_name": "Fyodor",
-        "last_name": "Dostoevsky",
-        "type": "Author"
-    },
-    {
-        "first_name": "Harper",
-        "last_name": "Lee",
-        "type": "Author"
-    },
-    {
-        "first_name": "Ernest",
-        "last_name": "Hemingway",
-        "type": "Author"
-    },
-    {
-        "first_name": "Mark",
-        "last_name": "Twain",
-        "type": "Author"
-    },
-    {
-        "first_name": "Charlotte",
-        "last_name": "Brontë",
-        "type": "Author"
-    },
-    {
-        "first_name": "William",
-        "last_name": "Shakespeare",
-        "type": "Author"
-    }
+  {
+    "type": "Author",
+    "id": 1,
+    "first_name": "J. K.",
+    "last_name": "Rowling"
+  },
+  {
+    "type": "Author",
+    "id": 2,
+    "first_name": "J. R. R.",
+    "last_name": "Tolkien"
+  },
+  {
+    "type": "Author",
+    "id": 3,
+    "first_name": "George",
+    "last_name": "Orwell"
+  },
+  {
+    "type": "Author",
+    "id": 4,
+    "first_name": "Jane",
+    "last_name": "Austen"
+  },
+  {
+    "type": "Author",
+    "id": 5,
+    "first_name": "Fyodor",
+    "last_name": "Dostoevsky"
+  },
+  {
+    "type": "Author",
+    "id": 6,
+    "first_name": "Harper",
+    "last_name": "Lee"
+  },
+  {
+    "type": "Author",
+    "id": 7,
+    "first_name": "Ernest",
+    "last_name": "Hemingway"
+  },
+  {
+    "type": "Author",
+    "id": 8,
+    "first_name": "Mark",
+    "last_name": "Twain"
+  },
+  {
+    "type": "Author",
+    "id": 9,
+    "first_name": "Charlotte",
+    "last_name": "Brontë"
+  },
+  {
+    "type": "Author",
+    "id": 10,
+    "first_name": "William",
+    "last_name": "Shakespeare"
+  }
 ]

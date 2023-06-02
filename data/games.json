@@ -1,1 +1,12 @@
-[]
+[
+  {
+    "type": "Game",
+    "id": 955,
+    "title": "1",
+    "publish_date": "2023-01-01",
+    "archived": true,
+    "multiplayer": true,
+    "last_played_at": "2023-01-01",
+    "label_id": 1
+  }
+]

@@ -1,1 +1,1 @@
-[]
+[{"type":"Book","id":94,"title":"Title","publish_date":"2023-06-02","archived":true,"publisher":"Publisher","cover_state":"good","author_id":10},{"type":"Book","id":498,"title":"Publisher2","publish_date":"2023-06-07","archived":true,"publisher":"Title2","cover_state":"good","author_id":9}]

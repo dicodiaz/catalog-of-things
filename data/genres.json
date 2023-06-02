@@ -1,1 +1,12 @@
-[{"name":"Classical","type":"Genre"},{"name":"Electronic","type":"Genre"},{"name":"Folk","type":"Genre"},{"name":"Hip Hop","type":"Genre"},{"name":"Jazz","type":"Genre"},{"name":"Metal","type":"Genre"},{"name":"Pop","type":"Genre"},{"name":"Punk","type":"Genre"},{"name":"Reggae","type":"Genre"},{"name":"Rock","type":"Genre"}]
+[
+  { "id": 1, "type": "Genre", "name": "Classical" },
+  { "id": 2, "type": "Genre", "name": "Electronic" },
+  { "id": 3, "type": "Genre", "name": "Folk" },
+  { "id": 4, "type": "Genre", "name": "Hip Hop" },
+  { "id": 5, "type": "Genre", "name": "Jazz" },
+  { "id": 6, "type": "Genre", "name": "Metal" },
+  { "id": 7, "type": "Genre", "name": "Pop" },
+  { "id": 8, "type": "Genre", "name": "Punk" },
+  { "id": 9, "type": "Genre", "name": "Reggae" },
+  { "id": 10, "type": "Genre", "name": "Rock" }
+]

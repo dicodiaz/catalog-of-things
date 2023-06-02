@@ -1,8 +1,9 @@
 class Genre
-  attr_accessor :name, :items
+  attr_accessor :name
+  attr_reader :items, :id
 
-  def initialize(name)
-    @id = rand(1000)
+  def initialize(id: rand(1000), name: nil)
+    @id = id
     @name = name
     @items = []
   end
@@ -12,6 +13,6 @@ class Genre
   end
 
   def self.from_parsed_json(genre, _helper_data)
-    new(genre['name'])
+    new(id: genre['id'], name: genre['name'])
   end
 end

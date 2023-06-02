@@ -4,20 +4,20 @@ require_relative 'book'
 require_relative 'label'
 require_relative 'game'
 require_relative 'author'
-require_relative 'data_loader'
+require_relative 'data_manager'
 require 'json'
 
 class App
   attr_reader :genres, :labels, :music_albums, :books, :authors, :games
 
   def initialize
-    @data_loader = DataLoader.new(self)
-    @genres = @data_loader.load_file('genres.json')
-    @labels = @data_loader.load_file('labels.json')
-    @music_albums = @data_loader.load_file('music_albums.json')
-    @books = @data_loader.load_file('books.json')
-    @authors = @data_loader.load_file('authors.json')
-    @games = @data_loader.load_file('games.json')
+    @data_manager = DataManager.new(self)
+    @authors = @data_manager.load_file('authors.json')
+    @genres = @data_manager.load_file('genres.json')
+    @labels = @data_manager.load_file('labels.json')
+    @books = @data_manager.load_file('books.json')
+    @music_albums = @data_manager.load_file('music_albums.json')
+    @games = @data_manager.load_file('games.json')
   end
 
   def list_books
@@ -92,42 +92,43 @@ class App
     cover_state = gets.chomp
     print 'Is it archived? [Y/N]: '
     archived = gets.chomp.match?(/^[yY]$/)
-    puts 'Please select a label:'
-    list_labels
-    label_id = gets.chomp.to_i
-    relevant_label = @labels.find { |label| label.id == label_id }
+    puts 'Please select an author:'
+    list_authors
+    author_id = gets.chomp.to_i
+    relevant_author = @authors.find { |author| author.id == author_id }
 
     new_book = Book.new(publish_date: publish_date, archived: archived, publisher: publisher, cover_state: cover_state,
                         title: title)
-    new_book.label = relevant_label
+    new_book.author = relevant_author
     @books << new_book
+
+    puts '', 'The book was created successfully', ''
   end
 
   def create_music_album
-    # Ask the user for the publish date, on spotify, archived and genre of the music album
-    print "\nPlease enter the title of the album: "
+    print 'Title: '
     title = gets.chomp
-    print 'Please enter the publish date of the album (YYYY/MM/DD): '
+    print 'Publish date (YYYY/MM/DD): '
     publish_date = Date.new(*gets.chomp.split('/').map(&:to_i))
-    print 'Is the album on Spotify? (y/n): '
+    print 'Is it on Spotify? (y/n): '
     on_spotify = gets.chomp == 'y'
-    print 'Is the album archived? (y/n): '
+    print 'Is it archived? (y/n): '
     archived = gets.chomp == 'y'
     puts 'Please select a genre: '
     list_genres
-    genre_index = gets.chomp.to_i - 1
+    genre_id = gets.chomp.to_i
+    relevant_genre = @genres.find { |genre| genre.id == genre_id }
 
-    # Create a new music album and add it to the list of music albums
-    new_music_album = MusicAlbum.new(on_spotify, publish_date, archived, title)
-    new_music_album.genre = @genres[genre_index]
+    new_music_album = MusicAlbum.new(title: title, publish_date: publish_date, archived: archived,
+                                     on_spotify: on_spotify)
+    new_music_album.genre = relevant_genre
     @music_albums << new_music_album
 
-    # Print a message to the user saying that the music album was created successfully
-    puts "\nThe music album was created successfully"
+    puts '', 'The music album was created successfully', ''
   end
 
   def create_game
-    print "\nTitle: "
+    print 'Title: '
     title = gets.chomp
     print 'Publish date (YYYY/MM/DD): '
     publish_date = Date.new(*gets.chomp.split('/').map(&:to_i))
@@ -137,49 +138,20 @@ class App
     multiplayer = gets.chomp == 'y'
     print 'Last played at (YYYY/MM/DD): '
     last_played_at = Date.new(*gets.chomp.split('/').map(&:to_i))
-    puts 'Please select an author: '
-    list_authors
-    author_index = gets.chomp.to_i - 1
+    puts 'Please select a label: '
+    list_labels
+    label_id = gets.chomp.to_i
+    relevant_label = @labels.find { |label| label.id == label_id }
 
-    new_game = Game.new(multiplayer, last_played_at, publish_date, archived, title)
-    new_game.author = @authors[author_index]
+    new_game = Game.new(title: title, publish_date: publish_date, archived: archived, multiplayer: multiplayer,
+                        last_played_at: last_played_at)
+    new_game.label = relevant_label
     @games << new_game
 
-    puts "\nThe game was created successfully"
+    puts '', 'The game was created successfully', ''
   end
 
   def exit
-    # Save the music albums to a file
-    music_albums_data = @music_albums.map do |music_album|
-      { on_spotify: music_album.on_spotify, publish_date: music_album.publish_date, archived: music_album.archived,
-        title: music_album.title, genre: music_album.genre.name, type: 'MusicAlbum' }
-    end
-
-    File.write('./data/music_albums.json', JSON.generate(music_albums_data))
-
-    # Save the genres to a file
-    genres_data = @genres.map do |genre|
-      { name: genre.name, type: 'Genre' }
-    end
-
-    File.write('./data/genres.json', JSON.generate(genres_data))
-
-    # Save the games to a file
-    games_data = @games.map do |game|
-      { multiplayer: game.multiplayer, last_played_at: game.last_played_at, publish_date: game.publish_date,
-        archived: game.archived, title: game.title, author: "#{game.author.first_name} #{game.author.last_name}",
-        type: 'Game' }
-    end
-
-    File.write('./data/games.json', JSON.generate(games_data))
-
-    # Save the authors to a file
-    authors_data = @authors.map do |author|
-      { first_name: author.first_name, last_name: author.last_name, type: 'Author' }
-    end
-    File.write('./data/authors.json', JSON.generate(authors_data))
-
-    # Save all books to a file
-    File.write('data/books.json', @books.to_json)
+    @data_manager.save_files
   end
 end
